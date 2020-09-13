@@ -9,7 +9,6 @@ class HeroWeaponSerializer(serializers.ModelSerializer):
         model = models.HeroWeapon
         fields = (
             'name',
-            'weapon_type',
             'aim_type',
             'damage',
             'movement_speed',
@@ -59,7 +58,7 @@ class HeroUltimateSerializer(serializers.ModelSerializer):
 
 class HeroSerializer(serializers.ModelSerializer):
     abilities = HeroAbilitySerializer(many=True)
-    weapon = HeroWeaponSerializer()
+    weapon = HeroWeaponSerializer(many=True)
     ultimate = HeroUltimateSerializer()
 
     class Meta:
@@ -80,5 +79,6 @@ class HeroSerializer(serializers.ModelSerializer):
             'image',
             'weapon',
             'ultimate',
-            'abilities'
+            'abilities', 
+            'preview_image'
         )

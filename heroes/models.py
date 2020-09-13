@@ -23,16 +23,17 @@ class Hero(models.Model):
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     real_name = models.TextField(max_length=256, null=True, blank=True)
-    affiliation = models.TextField(max_length=100)
-    age = models.PositiveIntegerField()
+    affiliation = models.TextField()
+    age = models.PositiveIntegerField(null=True, blank=True)
     difficulty = models.PositiveIntegerField()
-    health = models.PositiveIntegerField()
+    health = models.CharField(max_length=256)
     shield = models.PositiveIntegerField(null=True, blank=True)
     armour = models.PositiveIntegerField(null=True, blank=True)
     role = models.TextField(max_length=100)
-    occupation = models.TextField(max_length=100, null=True, blank=True)
+    occupation = models.TextField( null=True, blank=True)
     favourite_quote = models.TextField(max_length=256, null=True, blank=True)
-    image = models.URLField(null=True, blank=True)
+    image = models.TextField(null=True, blank=True)
+    preview_image = models.TextField( blank=True, null=True)
     weapon = models.OneToOneField('heroes.HeroWeapon', null=True,
                                   blank=True, on_delete=models.CASCADE, related_name='weapon')
     ultimate = models.OneToOneField('heroes.HeroUltimate', null=True,
@@ -60,24 +61,25 @@ class HeroWeapon(models.Model):
     name = models.CharField(max_length=255)
     slug = extension_fields.AutoSlugField(
         populate_from='name', default=None, null=True)
-    weapon_type = models.TextField(max_length=100, null=True, blank=True)
-    aim_type = models.TextField(max_length=100)
-    damage = models.TextField(max_length=100)
-    movement_speed = models.TextField(
+    description = models.TextField( null=True, blank=True)
+    aim_type = models.CharField(max_length=100)
+    damage = models.CharField(max_length=100, null=True, blank=True)
+    healing = models.CharField(max_length=100, null=True, blank=True)
+    movement_speed = models.CharField(
         max_length=100, default=None, null=True, blank=True)
-    rate_of_fire = models.TextField(
+    rate_of_fire = models.CharField(
         max_length=100, default=None, null=True, blank=True)
-    ammo = models.TextField(
+    ammo = models.CharField(
         max_length=100, default=None, null=True, blank=True)
-    headshot = models.TextField(
+    headshot = models.CharField(
         max_length=100, default=False, null=True, blank=True)
-    spread = models.TextField(
+    spread = models.CharField(
         max_length=100, default=None, null=True, blank=True)
-    falloff_range = models.TextField(
+    falloff_range = models.CharField(
         max_length=100, default=None, null=True, blank=True)
-    max_range = models.TextField(
+    max_range = models.CharField(
         max_length=100, default=None, null=True, blank=True)
-    image = models.URLField(default=None, null=True, blank=True)
+    image = models.TextField(default=None, null=True, blank=True)
 
     class Meta:
         ordering = ('-pk',)
@@ -102,7 +104,7 @@ class HeroAbility(models.Model):
                              blank=True, on_delete=models.PROTECT, related_name='abilities')
     name = models.CharField(max_length=255)
     cooldown = models.TextField(max_length=100)
-    image = models.URLField()
+    image = models.TextField()
     damage = models.TextField(max_length=100, blank=True, null=True)
     description = models.TextField(max_length=100)
     type = models.TextField(max_length=100)
@@ -137,8 +139,8 @@ class HeroUltimate(models.Model):
     duration = models.FloatField()
     damage = models.TextField(max_length=100, null=True, blank=True)
     healing = models.TextField(max_length=100, null=True, blank=True)
-    description = models.TextField(max_length=100)
-    image = models.URLField(null=True, blank=True)
+    description = models.TextField()
+    image = models.TextField(null=True, blank=True)
 
     class Meta:
         ordering = ('-pk',)
