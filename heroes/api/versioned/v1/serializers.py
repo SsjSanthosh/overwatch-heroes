@@ -4,7 +4,6 @@ from rest_framework import serializers
 
 
 class HeroWeaponSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.HeroWeapon
         fields = (
@@ -56,11 +55,10 @@ class HeroUltimateSerializer(serializers.ModelSerializer):
         )
 
 
-class HeroSerializer(serializers.ModelSerializer):
+class HeroesDetailSerializer(serializers.ModelSerializer):
     abilities = HeroAbilitySerializer(many=True)
     weapon = HeroWeaponSerializer(many=True)
     ultimate = HeroUltimateSerializer()
-
     class Meta:
         model = models.Hero
         fields = (
@@ -80,5 +78,16 @@ class HeroSerializer(serializers.ModelSerializer):
             'weapon',
             'ultimate',
             'abilities', 
+            'preview_image',
+        )
+
+
+class HeroesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Hero
+        fields = (
+            'id',
+            'name',
+            'role',
             'preview_image'
         )

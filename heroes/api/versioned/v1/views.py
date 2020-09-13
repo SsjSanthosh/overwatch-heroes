@@ -9,7 +9,12 @@ from heroes import models
 class HeroesViewSet(viewsets.ModelViewSet):
     """ViewSet for the Heroes class"""
     queryset = models.Hero.objects.all()
-    serializer_class = serializers.HeroSerializer
+    serializer_class = serializers.HeroesSerializer
+
+class HeroesListViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Heroes class list"""
+    queryset = models.Hero.objects.all()
+    serializer_class = serializers.HeroesDetailSerializer
 
 
 # class HeroWeaponViewSet(viewsets.ModelViewSet):

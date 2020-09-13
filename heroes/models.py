@@ -34,13 +34,12 @@ class Hero(models.Model):
     favourite_quote = models.TextField(max_length=256, null=True, blank=True)
     image = models.TextField(null=True, blank=True)
     preview_image = models.TextField( blank=True, null=True)
-    weapon = models.OneToOneField('heroes.HeroWeapon', null=True,
-                                  blank=True, on_delete=models.CASCADE, related_name='weapon')
     ultimate = models.OneToOneField('heroes.HeroUltimate', null=True,
                                     blank=True, on_delete=models.CASCADE, related_name='ultimate')
 
     class Meta:
         ordering = ('-created',)
+        verbose_name_plural = "Heroes"
 
     def __unicode__(self):
         return u'%s' % self.slug
@@ -58,6 +57,8 @@ class Hero(models.Model):
 class HeroWeapon(models.Model):
 
     # Fields
+    hero = models.ForeignKey('heroes.Hero', null=True,
+                             blank=True, on_delete=models.PROTECT, related_name='weapon')
     name = models.CharField(max_length=255)
     slug = extension_fields.AutoSlugField(
         populate_from='name', default=None, null=True)
@@ -80,9 +81,11 @@ class HeroWeapon(models.Model):
     max_range = models.CharField(
         max_length=100, default=None, null=True, blank=True)
     image = models.TextField(default=None, null=True, blank=True)
+    area_of_effect = models.CharField(max_length=256, null=True, blank=True)
 
     class Meta:
         ordering = ('-pk',)
+        verbose_name_plural = "Hero Weapons"
 
     def __unicode__(self):
         return u'%s' % self.slug
@@ -114,6 +117,7 @@ class HeroAbility(models.Model):
 
     class Meta:
         ordering = ('-pk',)
+        verbose_name_plural = "Hero Abilites"
 
     def __unicode__(self):
         return u'%s' % self.pk
@@ -144,6 +148,7 @@ class HeroUltimate(models.Model):
 
     class Meta:
         ordering = ('-pk',)
+        verbose_name_plural = "Hero Ultimates"
 
     def __unicode__(self):
         return u'%s' % self.pk
