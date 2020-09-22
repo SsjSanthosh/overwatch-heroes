@@ -1,1 +1,0 @@
-web: gunicorn overwatch_heroes.wsgi
