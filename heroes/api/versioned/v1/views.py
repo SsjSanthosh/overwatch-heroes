@@ -4,18 +4,21 @@ from . import serializers
 from rest_framework import viewsets, permissions, views
 from rest_framework.response import Response
 from heroes import models
+from .filters import HeroRoleBasedFilterSet
 
 
 class HeroesViewSet(viewsets.ModelViewSet):
     """ViewSet for the Heroes class"""
-    queryset = models.Hero.objects.all()
+    queryset = models.Hero.objects.all().order_by('name')
     serializer_class = serializers.HeroesSerializer
+    filter_class = HeroRoleBasedFilterSet
+
 
 class HeroesListViewSet(viewsets.ModelViewSet):
     """ViewSet for the Heroes class list"""
-    queryset = models.Hero.objects.all()
+    queryset = models.Hero.objects.all().order_by('name')
     serializer_class = serializers.HeroesDetailSerializer
-
+    filter_class = HeroRoleBasedFilterSet
 
 # class HeroWeaponViewSet(viewsets.ModelViewSet):
 #     """ViewSet for the HeroWeapon class"""

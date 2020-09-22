@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
 from django.db.models import CharField
 from django.db.models import DateTimeField
@@ -20,7 +20,10 @@ class Hero(models.Model):
 
     # Fields
     name = models.CharField(max_length=255)
+    sound = models.CharField(
+        max_length=255, default=None, null=True, blank=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
+    overview = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     real_name = models.TextField(max_length=256, null=True, blank=True)
     affiliation = models.TextField()
@@ -30,10 +33,10 @@ class Hero(models.Model):
     shield = models.PositiveIntegerField(null=True, blank=True)
     armour = models.PositiveIntegerField(null=True, blank=True)
     role = models.TextField(max_length=100)
-    occupation = models.TextField( null=True, blank=True)
+    occupation = models.TextField(null=True, blank=True)
     favourite_quote = models.TextField(max_length=256, null=True, blank=True)
     image = models.TextField(null=True, blank=True)
-    preview_image = models.TextField( blank=True, null=True)
+    preview_image = models.TextField(blank=True, null=True)
     ultimate = models.OneToOneField('heroes.HeroUltimate', null=True,
                                     blank=True, on_delete=models.CASCADE, related_name='ultimate')
 
@@ -62,7 +65,7 @@ class HeroWeapon(models.Model):
     name = models.CharField(max_length=255)
     slug = extension_fields.AutoSlugField(
         populate_from='name', default=None, null=True)
-    description = models.TextField( null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     aim_type = models.CharField(max_length=100)
     damage = models.CharField(max_length=100, null=True, blank=True)
     healing = models.CharField(max_length=100, null=True, blank=True)
@@ -106,17 +109,20 @@ class HeroAbility(models.Model):
     hero = models.ForeignKey('heroes.Hero', null=True,
                              blank=True, on_delete=models.PROTECT, related_name='abilities')
     name = models.CharField(max_length=255)
-    cooldown = models.TextField(max_length=100)
+    cooldown = models.CharField(max_length=100, null=True, blank=True)
     image = models.TextField()
     damage = models.TextField(max_length=100, blank=True, null=True)
-    description = models.TextField(max_length=100)
+    description = models.CharField(max_length=256, null=True, blank=True)
     type = models.TextField(max_length=100)
     healing = models.TextField(max_length=100, blank=True, null=True)
     casting_time = models.TextField(max_length=100, blank=True, null=True)
     movement_speed = models.TextField(max_length=100, null=True, blank=True)
+    area_of_effect = models.CharField(max_length=256, null=True, blank=True)
+    duration = models.CharField(null=True, blank=True, max_length=100)
+    health = models.IntegerField(null=True, blank=True)
 
     class Meta:
-        ordering = ('-pk',)
+        ordering = ('pk',)
         verbose_name_plural = "Hero Abilites"
 
     def __unicode__(self):
@@ -147,7 +153,7 @@ class HeroUltimate(models.Model):
     image = models.TextField(null=True, blank=True)
 
     class Meta:
-        ordering = ('-pk',)
+        ordering = ('id',)
         verbose_name_plural = "Hero Ultimates"
 
     def __unicode__(self):
