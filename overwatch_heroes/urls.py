@@ -20,5 +20,4 @@ from heroes.api.versioned.v1.router import router
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include(router))
-
 ]
