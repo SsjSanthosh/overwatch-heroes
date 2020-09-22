@@ -26,7 +26,7 @@ SECRET_KEY = '2#ru$c*v0!z4xj8ou^&1pdz%5gka)0b6pkg+5dxu+@bv2s$*gu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['overwatch-heroes-api.herokuapp.com', 'localhost:3000']
+ALLOWED_HOSTS = ['overwatch-heroes-api.herokuapp.com', 'localhost']
 
 
 # Application definition
