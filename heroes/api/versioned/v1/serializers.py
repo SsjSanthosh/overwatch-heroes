@@ -7,8 +7,9 @@ class HeroWeaponSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.HeroWeapon
         fields = (
-            'image',
             'name',
+            'image',
+
             'aim_type',
             'damage',
             'movement_speed',
@@ -26,10 +27,9 @@ class HeroAbilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.HeroAbility
         fields = (
-            'image',
             'name',
+            'image',
             'cooldown',
-
             'damage',
             'description',
             'type',
@@ -44,8 +44,8 @@ class HeroUltimateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.HeroUltimate
         fields = (
-            'image',
             'name',
+            'image',
             'aim_type',
             'cost',
             'casting_time',
@@ -67,10 +67,11 @@ class HeroesDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Hero
         fields = (
+            'name',
             'id',
             'image',
             'favourite_quote',
-            'name',
+
             'sound',
             'real_name',
             'affiliation',
