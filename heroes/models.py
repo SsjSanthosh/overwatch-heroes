@@ -44,6 +44,10 @@ class Hero(models.Model):
         ordering = ('-created',)
         verbose_name_plural = "Heroes"
 
+    @property
+    def wiki_link(self):
+        return "https://overwatch.gamepedia.com/"+self.name
+    
     def __unicode__(self):
         return u'%s' % self.slug
 

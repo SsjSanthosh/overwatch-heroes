@@ -9,7 +9,6 @@ class HeroWeaponSerializer(serializers.ModelSerializer):
         fields = (
             'name',
             'image',
-
             'aim_type',
             'damage',
             'movement_speed',
@@ -70,8 +69,8 @@ class HeroesDetailSerializer(serializers.ModelSerializer):
             'name',
             'id',
             'image',
+            'wiki_link',
             'favourite_quote',
-
             'sound',
             'real_name',
             'affiliation',
